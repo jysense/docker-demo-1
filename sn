@@ -1,0 +1,13 @@
+@@@ in docker VM
+vi /usr/lib/systemd/system/docker.service
+[service]
+update with line 'ExecStart'
+ExecStart=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock  -->  ExecStart=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock -H tcp://0.0.0.0:2375
+### restart docker service
+systemctl daemon-reload
+systemctl start docker
+### open the port
+firewall-cmd --zone=public --add-port=2375/tcp --permanent
+
+@@@ install plugin 'docker' in idea
+
